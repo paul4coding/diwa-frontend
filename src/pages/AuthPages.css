@@ -1,0 +1,201 @@
+/* =====================================================
+ * DIWA — Auth Pages (Login / Register)
+ * Split-screen premium: dark panel left + form right
+ * ===================================================== */
+
+.auth-container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+}
+
+/* LEFT PANEL — cinematic dark with car background */
+.auth-container::before {
+  content: "";
+  position: absolute;
+  inset: 0 50% 0 0; /* only left half */
+  background: url('/for.png') center/cover no-repeat;
+  filter: brightness(0.3);
+  z-index: 0;
+}
+
+/* REVERSE LAYOUT (for Register) */
+.auth-container.reverse::before {
+  inset: 0 0 0 50%; /* only right half */
+  background: url('/for.png') center/cover no-repeat;
+}
+.auth-container.reverse .auth-left-panel {
+  grid-column: 2;
+  grid-row: 1;
+}
+.auth-container.reverse .auth-right-panel {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+/* Left panel content */
+.auth-left-panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 60px;
+  color: #fff;
+}
+.auth-brand-mark {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+.auth-left-tagline {
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 200;
+  letter-spacing: -2px;
+  line-height: 0.95;
+  color: #fff;
+  margin: 0;
+}
+.auth-left-tagline strong {
+  font-weight: 800;
+  color: #fff;
+}
+.auth-left-sub {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.7;
+  max-width: 300px;
+}
+.auth-left-accent {
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(to right, #73020D, #116BAB);
+  margin-bottom: 24px;
+}
+
+/* RIGHT PANEL — clean form area */
+.auth-right-panel {
+  position: relative;
+  z-index: 1;
+  background: var(--bg-primary, #fff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 80px;
+}
+
+/* Card legacy override */
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: transparent;
+  backdrop-filter: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  position: relative;
+  z-index: 10;
+}
+
+.auth-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary, #1C1917);
+  margin-bottom: 0.4rem;
+  letter-spacing: -1px;
+}
+
+.auth-subtitle {
+  color: var(--neutral-500, #78716C);
+  margin-bottom: 2.5rem;
+  font-size: 0.9rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--neutral-700, #292524);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.form-group input {
+  padding: 14px 18px;
+  border: 1.5px solid var(--border-color, #E8E6E2);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text-primary, #1C1917);
+  background: var(--bg-surface, #F5F4F2);
+  transition: all 0.25s ease;
+}
+
+.form-group input::placeholder { color: var(--neutral-400, #A8A29E); }
+
+.form-group input:focus {
+  border-color: #73020D;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(115, 2, 13, 0.08);
+  outline: none;
+}
+
+.w-full { width: 100%; }
+
+.auth-footer {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--neutral-500, #78716C);
+  border-top: 1px solid var(--border-color, #E8E6E2);
+  padding-top: 1.5rem;
+}
+
+.auth-footer a {
+  color: #73020D;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.2s;
+  margin-left: 5px;
+}
+
+.auth-footer a:hover {
+  color: #9B1A24;
+  text-decoration: underline;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .auth-container {
+    grid-template-columns: 1fr;
+  }
+  .auth-container::before, .auth-container.reverse::before {
+    inset: 0;         /* full screen bg on mobile */
+  }
+  .auth-left-panel { display: none; }
+  .auth-right-panel {
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    padding: 60px 40px;
+    min-height: 100vh;
+  }
+  .auth-card { max-width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .auth-right-panel { padding: 40px 20px; }
+}

@@ -1,0 +1,955 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* THEME VARIABLES (Default Light) */
+  --bg-primary:     #FFFFFF;
+  --bg-primary-rgb: 255, 255, 255;
+  --bg-secondary:   #FAFAF9;   /* Neutre chaud — plus vivant que #f8f9fa */
+  --bg-surface:     #F5F4F2;   /* Cartes, encarts */
+  --text-primary:   #1C1917;   /* Neutre 800 — plus doux que #000 */
+  --text-secondary: #57534E;   /* Neutre 600 */
+  --border-color:   #E8E6E2;   /* Neutre 200 */
+  --staggered-line-color: #116BAB;
+
+  color-scheme: light;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[data-theme='dark'] {
+  --bg-primary:     #0D0D0B;
+  --bg-primary-rgb: 13, 13, 11;
+  --bg-secondary:   #161614;
+  --bg-surface:     #1E1D1A;
+  --text-primary:   #F5F4F2;
+  --text-secondary: #A8A29E;
+  --border-color:   #2A2825;
+  --staggered-line-color: #73020D;
+  color-scheme: dark;
+}
+
+html {
+  background: var(--bg-primary);
+  transition: background 0.4s ease;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-primary);
+  overflow-x: hidden;
+  color: var(--text-primary);
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* --- STAGGERED TITLE --- */
+.staggered-title {
+  display: inline-block;
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+  padding: 10px 0;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  transition: color 0.4s ease;
+}
+
+.staggered-title::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 45%;
+  height: 2px;
+  background-color: var(--staggered-line-color);
+  transition: background-color 0.4s ease;
+}
+
+.staggered-title::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 2px;
+  background-color: var(--staggered-line-color);
+  transition: background-color 0.4s ease;
+}
+
+
+#root {
+  width: 100%;
+}
+
+h1, .serif {
+  font-family: 'Poppins', sans-serif;
+}
+
+button {
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 0.8em 2em;
+  font-size: 0.8em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: 'Poppins', sans-serif;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover {
+  background-color: white;
+  color: black;
+  border-color: white;
+}
+
+canvas {
+  touch-action: none;
+}
+
+.service-card:hover {
+  transform: translateY(-10px) translateZ(0);
+}
+
+.service-card:hover img {
+  opacity: 1 !important;
+  transform: scale(1.05) translateZ(0);
+}
+
+.service-card img {
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* --- NOUVELLE NAVBAR DIWA STEP-BY-STEP --- */
+
+/* --- NAVBAR ELITE (Géré plus bas) --- */
+
+.navbar-scrolled {
+  height: 70px; /* Encore plus fin au scroll */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+/* --- SECTION TÉMOIGNAGES (MEMORIALS) --- */
+.testimonials-blue-box {
+  background: #116BAB;
+  padding: 100px 8%;
+  color: #fff;
+  text-align: center;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 50px;
+  margin-bottom: 60px;
+}
+
+.testimonial-card {
+  padding: 20px;
+}
+
+.testimonial-quote {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  opacity: 0.9;
+  margin-bottom: 30px;
+  font-style: italic;
+}
+
+.testimonial-user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.testimonial-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+.testimonial-info {
+  text-align: left;
+}
+
+.testimonial-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.testimonial-title {
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.pagination-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.3;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: #4a148c; /* Violet comme sur la capture */
+  opacity: 1;
+}
+
+/* --- SECTION CONFIGURATEUR (SPLIT) --- */
+.configurator-split {
+  display: flex;
+  min-height: 600px;
+  background: #116BAB;
+}
+
+.configurator-text {
+  flex: 1;
+  padding: 80px 5%;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.configurator-grid {
+  flex: 1.5;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  background: #fff;
+}
+
+.config-grid-item {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.config-grid-item:hover {
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+/* --- ANCIENS STYLES SUPPRIMÉS POUR SECTION RDV EXPERTS --- */
+
+.btn-white-pill {
+  background: #fff !important;
+  color: #116BAB !important;
+  border: none !important;
+  padding: 15px 40px !important;
+  border-radius: 50px !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  cursor: pointer;
+  transition: transform 0.3s !important;
+}
+
+.btn-white-pill:hover {
+  transform: scale(1.05);
+}
+
+/* Lien de navigation style MG */
+.nav-link-item {
+  color: inherit !important;
+  font-weight: 700 !important; /* Passage en gras */
+  font-size: 14px !important;
+  letter-spacing: 0.5px !important;
+  position: relative;
+  padding: 0;
+  text-transform: none !important;
+  opacity: 0.9;
+  transition: opacity 0.3s;
+}
+
+.nav-link-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+
+.nav-link-item:hover::after {
+  width: 100%;
+}
+
+/* Dropdown WordPress-like Animation */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--bg-primary);
+  min-width: 200px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  border-radius: 8px;
+  padding: 20px 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  z-index: 100;
+  border-top: 2px solid var(--staggered-line-color);
+}
+
+/* --- NAVBAR ELITE RESPONSIVE --- */
+.navbar-elite {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4%;
+  height: 100px;
+  z-index: 1000;
+  transition: all 0.4s ease;
+  box-sizing: border-box;
+}
+
+.nav-links-container {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  align-self: stretch; /* étire pour propager la hauteur jusqu'aux wrappers */
+}
+
+/* Menu Mobile (Burger caché par défaut) */
+.burger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  z-index: 4000;
+}
+
+@media (max-width: 1024px) {
+  .burger-menu {
+    display: flex;
+  }
+
+  .nav-links-container {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Caché à droite */
+    width: 80%;
+    height: 100vh;
+    background: var(--bg-primary);
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 40px;
+    gap: 35px;
+    transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    box-shadow: -10px 0 30px rgba(0,0,0,0.3);
+    z-index: 3500;
+  }
+
+  .nav-links-container.nav-mobile-active {
+    right: 0; /* Apparaît */
+  }
+
+  .nav-link-item {
+    font-size: 1.2rem !important;
+    color: var(--text-primary) !important;
+    width: 100%;
+    text-align: left;
+  }
+
+  .navbar-elite {
+    height: 80px;
+  }
+
+  /* Sur mobile le wrapper n'a pas besoin de s'étirer (menu vertical) */
+  .nav-link-wrapper {
+    align-self: auto;
+    height: auto;
+  }
+}
+
+.nav-left-brand {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  align-self: stretch; /* étire jusqu'au bas de la navbar */
+}
+
+.nav-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  align-self: stretch; /* pour que le dropdown profil parte aussi du bon endroit */
+}
+
+/* Le wrapper dropdown s'étire sur toute la hauteur de la navbar,
+   ce qui place top:100% exactement sous la barre de navigation */
+.nav-link-wrapper {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.burger-line {
+  width: 24px;
+  height: 2px;
+  background: currentColor;
+  margin: 2px 0;
+  transition: all 0.3s ease;
+}
+
+.burger-menu.active .burger-line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.burger-menu.active .burger-line:nth-child(2) { opacity: 0; }
+.burger-menu.active .burger-line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Pont invisible sous le wrapper pour éviter que le curseur
+   ne déclenche mouseleave dans le gap entre la navbar et le dropdown */
+.nav-link-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+
+/* Dropdown desktop hover — désactivé : géré par React state (Navbar.tsx hoverDropdown) */
+/* .nav-link-wrapper:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+} */
+
+@media (max-width: 1024px) {
+  .nav-link-wrapper:hover .dropdown-menu {
+    transform: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+  .nav-link-wrapper.mobile-open .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    position: relative;
+    left: 0;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .dropdown-menu {
+    position: relative;
+    left: 0;
+    transform: none;
+    width: 100%;
+    box-shadow: none;
+    background: transparent;
+    border-top: none;
+    padding: 0;
+  }
+  .dropdown-item {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+}
+
+.dropdown-item {
+  display: block;
+  padding: 12px 30px;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.3s, color 0.3s;
+}
+
+.dropdown-item:hover {
+  background: var(--bg-secondary);
+  color: var(--staggered-line-color);
+}
+
+/* Bouton "Commencer" Rouge Pill */
+.btn-commencer {
+  background: #73020D !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 12px 35px !important;
+  border-radius: 50px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s !important;
+}
+
+.btn-commencer:hover {
+  background: #9B1A24 !important;
+  transform: scale(1.05);
+}
+
+/* --- HERO SLIDER (MAQUETTE STYLE) --- */
+.hero-slider-container {
+  height: 85vh; 
+  width: 100%; 
+  margin: 0; 
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-size: cover !important; 
+  background-position: center !important;
+}
+
+.hero-slide.active { opacity: 1; }
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  padding: 0 20px;
+}
+
+.hero-content h1 {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 4rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 25px;
+  letter-spacing: -2px;
+}
+
+.hero-content p {
+  font-size: 1.5rem;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+
+/* Boutons de la Maquette */
+.hero-btn-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.btn-hero-primary {
+  background: #116BAB;
+  color: #fff;
+  border: none;
+  padding: 16px 45px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-hero-outline {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.6);
+  padding: 16px 45px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-hero-primary:hover { background: #1A82CF; transform: scale(1.05); }
+.btn-hero-outline:hover { background: rgba(255,255,255,0.1); }
+
+/* Flèches Carrées Blanches (Maquette) */
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 15;
+  background: #ffffff !important;
+  color: #000000 !important;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.hero-arrow svg { 
+  display: block;
+}
+
+.hero-arrow:hover { 
+  background: #f0f0f0 !important; 
+  transform: translateY(-50%) scale(1.1);
+}
+
+.hero-arrow-left { left: 0; }
+.hero-arrow-right { right: 0; }
+
+/* --- OLD SERVICES CSS REMOVED --- */
+
+/* --- PRODUITS (SLIDER HORIZONTAL) --- */
+.products-slider {
+  display: flex;
+  gap: 25px;
+  overflow-x: auto;
+  padding: 40px 0;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.products-slider::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.product-card {
+  min-width: 280px;
+  background: #fdfdfd;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+  position: relative;
+}
+
+.price-tag-red {
+  background: #73020D;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-weight: 900;
+  display: inline-block;
+  margin: 15px 0;
+}
+
+/* --- NAVIGATION INVENTAIRE (ELITE) --- */
+.elite-nav-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.elite-nav-btn svg {
+  display: block;
+  transition: color 0.3s ease;
+}
+
+.elite-nav-btn:hover {
+  transform: scale(1.2);
+}
+
+.elite-nav-btn:hover svg {
+  color: #b71c1c !important;
+}
+
+.elite-nav-btn:hover span {
+  color: #fff;
+}
+
+/* --- BOUTONS NAVIGATION SLIDER PRODUITS --- */
+.slider-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  background: #ffffff;
+  color: #000;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 50;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  padding: 0;
+  font-size: 1.2rem;
+}
+
+.slider-nav-btn:hover {
+  background: #000;
+  color: #fff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.slider-nav-btn.prev { left: -20px; }
+.slider-nav-btn.next { right: -20px; }
+
+@media (max-width: 768px) {
+  .slider-nav-btn { display: none; }
+}
+/* --- CORRECTIF MOBILE UNIVERSEL ELITE --- */
+@media (max-width: 768px) {
+  :root {
+    font-size: 14px; /* Réduction globale de l'échelle */
+  }
+
+  /* Boutons plus compacts sur mobile */
+  button {
+    padding: 0.6em 1.2em !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  /* Titres Hero adaptés */
+  .hero-content h1 {
+    font-size: 2rem !important;
+    letter-spacing: -1px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .hero-content p {
+    font-size: 1rem !important;
+    margin-bottom: 20px !important;
+    opacity: 0.8;
+  }
+
+  /* Ajustement Slider Produits */
+  .product-card {
+    min-width: 85% !important; /* Carte quasi plein écran sur mobile */
+    margin-right: 10px;
+    padding: 20px !important;
+  }
+
+  .price-tag-red {
+    font-size: 0.8rem !important;
+    padding: 6px 12px !important;
+  }
+
+  .hero-btn-group {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .btn-hero-primary, .btn-hero-outline {
+    width: 100%;
+    padding: 12px 20px !important;
+  }
+
+  /* Espacements des sections */
+  .services-blue-container, .testimonials-blue-box {
+    padding: 60px 5% !important;
+  }
+
+  /* Grilles fluides */
+  .testimonial-grid, .configurator-grid {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+
+  /* Configurator Split */
+  .configurator-split {
+    flex-direction: column;
+  }
+
+  .configurator-text {
+    padding: 40px 8% !important;
+  }
+
+  /* Navbar Adjustments */
+  .navbar-elite {
+    height: 80px !important;
+  }
+
+  .nav-left-brand h2 {
+    font-size: 1.2rem !important;
+  }
+}
+
+/* --- OPTIMISATION TABLEAU DE BORD ADMIN (MOBILE) --- */
+@media (max-width: 1024px) {
+  .admin-dashboard-container {
+    padding: 10px !important;
+  }
+  
+  .planning-grid {
+    grid-template-columns: 1fr !important; /* Une seule colonne techniciens */
+  }
+
+/* --- CORRECTIFS MOBILES GLOBAUX --- */
+@media (max-width: 1024px) {
+  .nav-right-actions {
+    gap: 15px !important;
+  }
+  
+  .nav-left-brand img {
+    height: 50px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-right-actions {
+    gap: 10px !important;
+  }
+  
+  .nav-link-item {
+    font-size: 1.1rem !important;
+  }
+
+  .staggered-title {
+    font-size: 1.8rem !important;
+    letter-spacing: 0.2em !important;
+  }
+
+  section {
+    padding: 60px 5% !important;
+  }
+
+  .elite-car-card {
+    min-width: 290px !important;
+  }
+
+  .elite-image-box {
+    height: 200px !important;
+  }
+
+  .elite-card-body {
+    padding: 20px !important;
+  }
+
+  .elite-card-body h4 {
+    font-size: 1.4rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-right-actions span {
+    display: none; /* Cache "Connexion" sur très petit écran */
+  }
+  
+  .hero-content h1 {
+    font-size: 1.8rem !important;
+  }
+  
+  .btn-hero-primary, .btn-hero-outline {
+    padding: 10px 20px !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+  .ticket-card {
+    padding: 10px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .shelf-container {
+    max-height: 200px !important;
+    margin-bottom: 20px;
+  }
+}
+
+/* --- BOUTONS ACTIONS ADMIN ELITE --- */
+.btn-admin-action {
+  border: none;
+  border-radius: 4px;
+  padding: 2px 8px !important;
+  font-size: 0.65rem !important;
+  cursor: pointer;
+  font-weight: 800 !important;
+  text-transform: none !important;
+  transition: transform 0.2s, background 0.3s !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-admin-action:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+.btn-validate { background: #10b981 !important; color: white !important; }
+.btn-reset { background: #64748b !important; color: white !important; }
+.btn-cancel { background: #ef4444 !important; color: white !important; }
+
+@media (max-width: 600px) {
+  .btn-admin-action {
+    padding: 6px 12px !important; /* Plus gros pour le tactile */
+    font-size: 0.8rem !important;
+  }
+}

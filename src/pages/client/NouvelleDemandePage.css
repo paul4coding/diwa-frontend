@@ -1,0 +1,262 @@
+.nouvelle-demande-wrapper {
+    min-height: 100vh;
+    background: #f8fafc;
+}
+
+.nouvelle-demande-hero {
+    height: 350px;
+    background: url('/ChevroletTahoeExécutif.png') center/cover no-repeat fixed;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    padding-top: 80px;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4), #0f172a);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.nouvelle-demande-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    font-weight: 900;
+}
+
+.nouvelle-demande-hero p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.form-container-elite {
+    max-width: 850px;
+    margin: -60px auto 100px;
+    position: relative;
+    z-index: 10;
+    padding: 0 20px;
+}
+
+.section-card-elite {
+    background: #fff;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    margin-bottom: 30px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.section-header-elite {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 20px;
+}
+
+.section-icon-box {
+    width: 45px;
+    height: 45px;
+    background: #fef2f2;
+    color: #b71c1c;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-header-elite h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #1e293b;
+    font-weight: 800;
+}
+
+/* Grid Layouts */
+.input-grid-elite {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.input-grid-triple {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+/* Form Groups */
+.form-group-elite {
+    margin-bottom: 20px;
+}
+
+.form-group-elite label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.elite-input, .elite-select, .elite-textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    font-size: 1rem;
+    transition: 0.3s;
+    background: #fcfcfc;
+}
+
+.elite-input:focus, .elite-select:focus, .elite-textarea:focus {
+    border-color: #b71c1c;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(183, 28, 28, 0.05);
+    outline: none;
+}
+
+/* Photo Upload */
+.upload-zone-elite {
+    border: 2px dashed #e2e8f0;
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    background: #f8fafc;
+}
+
+.upload-zone-elite:hover {
+    border-color: #b71c1c;
+    background: #fff;
+}
+
+/* Map Button Mock */
+.map-btn-elite {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #1e293b;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.map-btn-elite:hover {
+    background: #334155;
+}
+
+/* Urgency Selector */
+.urgency-grid-elite {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.urgency-option-elite {
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.urgency-option-elite.active.NORMALE { border-color: #10b981; background: #f0fdf4; }
+.urgency-option-elite.active.URGENTE { border-color: #f59e0b; background: #fffbeb; }
+.urgency-option-elite.active.TRES_URGENTE { border-color: #ef4444; background: #fef2f2; }
+
+.error-msg {
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin-top: 6px;
+    font-weight: 600;
+}
+
+.remove-photo-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ef4444;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+    transition: 0.2s;
+}
+
+.remove-photo-btn:hover {
+    transform: scale(1.1);
+    background: #dc2626;
+}
+
+.submit-btn-elite {
+    background: linear-gradient(135deg, #b71c1c 0%, #7f1d1d 100%);
+    color: #fff;
+    border: none;
+    padding: 20px 60px;
+    border-radius: 100px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 10px 30px rgba(183, 28, 28, 0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.submit-btn-elite:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(183, 28, 28, 0.3);
+}
+
+.submit-btn-elite:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: #94a3b8;
+}
+
+.animate-in {
+    animation: slideUp 0.5s ease-out forwards;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .input-grid-elite, .input-grid-triple, .urgency-grid-elite {
+        grid-template-columns: 1fr;
+    }
+    .submit-btn-elite {
+        width: 100%;
+        padding: 18px 30px;
+    }
+}

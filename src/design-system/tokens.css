@@ -1,0 +1,68 @@
+:root {
+  /* =====================================================
+   * DIWA DESIGN TOKENS — Palette Pro & Harmonieuse
+   * Logo: #73020D (Bordeaux) · #116BAB (Acier) · #FFFFFF
+   * ===================================================== */
+
+  /* — Couleur Principale : Bordeaux DIWA — */
+  --diwa-red:        #73020D;   /* Logo exact — usage principal */
+  --diwa-red-light:  #9B1A24;   /* Hover / états actifs */
+  --diwa-red-soft:   #FAF0F1;   /* Fond de surface rouge très léger */
+  --diwa-red-muted:  rgba(115, 2, 13, 0.08); /* Overlay, badges */
+
+  /* — Couleur Secondaire : Acier DIWA — */
+  --diwa-blue:       #116BAB;   /* Logo exact — usage accent */
+  --diwa-blue-light: #1A82CF;   /* Hover */
+  --diwa-blue-soft:  #EFF6FC;   /* Fond de surface bleu très léger */
+  --diwa-blue-muted: rgba(17, 107, 171, 0.08);
+
+  /* — Neutres Chauds (Pro, pas pur gris) — */
+  --neutral-50:  #FAFAF9;   /* Off-white chaud — fonds de sections */
+  --neutral-100: #F5F4F2;   /* Fond de carte */
+  --neutral-200: #E8E6E2;   /* Bordures légères */
+  --neutral-300: #D4D0CA;   /* Bordures visibles */
+  --neutral-400: #A8A29E;   /* Texte placeholder */
+  --neutral-500: #78716C;   /* Texte secondaire */
+  --neutral-600: #57534E;   /* Texte corps */
+  --neutral-700: #292524;   /* Texte fort */
+  --neutral-800: #1C1917;   /* Titres */
+  --neutral-900: #0C0A09;   /* Quasi-noir */
+
+  /* — Blanc Pur — */
+  --white: #FFFFFF;
+
+  /* — Sémantique — */
+  --success: #15803D;
+  --warning: #B45309;
+  --error:   #B91C1C;
+  --info:    #116BAB;
+
+  /* — Compatibilité rétro (anciens noms utilisés dans le code) — */
+  --brand-mg:         var(--diwa-red);
+  --brand-isuzu:      var(--diwa-blue);
+  --brand-chevrolet:  #8A6914;
+  --brand-baic:       #4A5568;
+  --staggered-line-color: var(--diwa-blue);
+
+  /* — Spacing — */
+  --space-1: 4px;   --space-2: 8px;   --space-3: 12px;
+  --space-4: 16px;  --space-6: 24px;  --space-8: 32px;
+  --space-12: 48px;
+
+  /* — Border Radius — */
+  --radius-sm: 4px;   --radius-md: 8px;
+  --radius-lg: 12px;  --radius-xl: 16px;  --radius-full: 9999px;
+
+  /* — Shadows — */
+  --shadow-sm:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:    0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg:    0 12px 30px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.04);
+  --shadow-hover: 0 24px 48px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.06);
+  --shadow-card:  0 2px 8px rgba(28,25,23,0.06), 0 0 1px rgba(28,25,23,0.08);
+
+  /* — Transitions — */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+

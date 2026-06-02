@@ -1,0 +1,41 @@
+.diwa-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 10px;
+  height: 24px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  white-space: nowrap;
+}
+
+/* Brand Specific */
+.diwa-badge--brand-mg {
+  background-color: var(--brand-mg);
+  color: var(--white);
+}
+
+.diwa-badge--brand-isuzu {
+  background-color: var(--brand-isuzu);
+  color: var(--white);
+}
+
+.diwa-badge--brand-chevrolet {
+  background-color: var(--brand-chevrolet);
+  color: var(--white);
+}
+
+.diwa-badge--brand-baic {
+  background-color: var(--brand-baic);
+  color: var(--white);
+}
+
+/* Semantics */
+.diwa-badge--success { background-color: #DEF1E8; color: #11784A; }
+.diwa-badge--warning { background-color: #FEF3C7; color: #92400E; }
+.diwa-badge--error { background-color: #FEE2E2; color: #B91C1C; }
+.diwa-badge--info { background-color: #DBEAFE; color: #1E40AF; }
+.diwa-badge--primary { background-color: var(--diwa-blue); color: white; }
+.diwa-badge--outline { background-color: transparent; border: 1px solid #e2e8f0; color: #64748b; }

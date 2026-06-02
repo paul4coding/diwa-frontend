@@ -1,0 +1,41 @@
+.diwa-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  width: fit-content;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+}
+
+.status--success {
+  background-color: #ECFDF5;
+  color: #065F46;
+}
+.status--success .status-dot { background-color: #10B981; }
+
+.status--warning {
+  background-color: #FFFBEB;
+  color: #92400E;
+}
+.status--warning .status-dot { background-color: #F59E0B; }
+
+.status--error {
+  background-color: #FEF2F2;
+  color: #991B1B;
+}
+.status--error .status-dot { background-color: #EF4444; }
+
+.status--info {
+  background-color: #EFF6FF;
+  color: #1E40AF;
+}
+.status--info .status-dot { background-color: #3B82F6; }

@@ -1,0 +1,174 @@
+/* ============================================
+ * DIWA ELITE — Vehicle Grid & Cards
+ * Palette: Bordeaux #73020D · Acier #116BAB
+ * ============================================ */
+
+.vehicle-premium-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;                     /* Joints serrés style galerie premium */
+    background: var(--neutral-200, #E8E6E2); /* La jointure DEVIENT la couleur */
+    padding: 0;
+}
+
+.vehicle-grid-item {
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    position: relative;
+    background: var(--bg-secondary, #FAFAF9);
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── ZONE IMAGE : fond "studio" premium ─── */
+.vehicle-image-container {
+    position: relative;
+    width: 100%;
+    padding-top: 70%;                    /* Ratio portrait légèrement plus haut */
+    background: #F8F7F5;                 /* Off-white chaud */
+
+    /* Subtil quadrillage style studio photo */
+    background-image:
+        linear-gradient(rgba(0,0,0,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.025) 1px, transparent 1px);
+    background-size: 30px 30px;
+
+    /* Vignette sol simulant un studio (ombre au bas de l'image) */
+    box-shadow: inset 0 -60px 80px rgba(0,0,0,0.06);
+}
+
+/* Ligne de sol — effet "surface réfléchissante" */
+.vehicle-image-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(232,230,226,0.6), transparent);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.vehicle-image-container img {
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 82%;
+    max-height: 82%;
+    object-fit: contain;
+    transition: all 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: drop-shadow(0 20px 40px rgba(28,25,23,0.18));
+    z-index: 2;
+}
+
+/* ─── OVERLAY AU SURVOL ─── */
+.vehicle-hover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(28, 25, 23, 0.88);   /* Sombre riche, pas pur noir */
+    backdrop-filter: blur(2px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.45s ease;
+    padding: 40px;
+    text-align: center;
+    z-index: 10;
+}
+
+.vehicle-grid-item:hover .vehicle-hover-overlay { opacity: 1; }
+.vehicle-grid-item:hover img {
+    transform: translate(-50%, -52%) scale(1.06);
+    filter: drop-shadow(0 30px 50px rgba(0,0,0,0.3));
+}
+
+/* ─── CONTENU OVERLAY ─── */
+.hover-brand {
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 10px;
+}
+
+.hover-model {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 200;             /* Ultra-light style new gen */
+    margin: 0;
+    color: #fff;
+    letter-spacing: -1px;
+    line-height: 1;
+}
+
+.hover-divider {
+    width: 32px;
+    height: 2px;
+    background: #73020D;          /* Bordeaux DIWA */
+    margin: 18px 0;
+}
+
+.hover-price {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 28px;
+    letter-spacing: 0.5px;
+}
+
+.btn-view-config {
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.4);
+    padding-bottom: 4px;
+    transition: all 0.3s ease;
+}
+
+.btn-view-config:hover {
+    color: #fff;
+    border-color: #73020D;
+    gap: 14px;
+}
+
+/* ─── BOUTON LIKE ─── */
+.btn-like-grid {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 20;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.92);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    backdrop-filter: blur(4px);
+}
+
+.btn-like-grid:hover  { transform: scale(1.12); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+.btn-like-grid.active { background: #fff5f5; border-color: rgba(255,59,48,0.2); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1200px) { .vehicle-premium-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) {
+    .vehicle-premium-grid { grid-template-columns: 1fr; gap: 1px; }
+    .hover-model { font-size: 1.6rem; }
+    .vehicle-hover-overlay { padding: 24px; }
+    .hover-divider { margin: 12px 0; }
+    .hover-price { margin-bottom: 16px; }
+    .btn-like-grid { width: 36px; height: 36px; top: 10px; right: 10px; }
+}

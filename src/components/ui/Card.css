@@ -1,0 +1,42 @@
+.diwa-card {
+  background-color: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.diwa-card.is-hoverable:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--diwa-blue-light);
+}
+
+/* Shadows */
+.diwa-card--shadow-none { box-shadow: none; }
+.diwa-card--shadow-sm { box-shadow: var(--shadow-sm); }
+.diwa-card--shadow-md { box-shadow: var(--shadow-md); }
+.diwa-card--shadow-lg { box-shadow: var(--shadow-lg); }
+
+.diwa-card-header {
+  padding: var(--space-6) var(--space-6) 0 var(--space-6);
+  margin-bottom: var(--space-4);
+}
+
+.diwa-card-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.diwa-card-subtitle {
+  margin: 4px 0 0 0;
+  font-size: 0.85rem;
+  color: var(--gray-500);
+}
+
+.diwa-card-content {
+  height: 100%;
+}
