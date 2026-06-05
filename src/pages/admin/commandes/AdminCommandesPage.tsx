@@ -27,7 +27,7 @@ const AdminCommandesPage = () => {
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const resp = await fetch('http://localhost:8181/api/v1/commande/all', {
+      const resp = await fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/commande/all`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       const result = await resp.json();
@@ -52,7 +52,7 @@ const AdminCommandesPage = () => {
 
   const handleStatusChange = async (id: number, newStatus: string) => {
     try {
-      await fetch(`http://localhost:8181/api/v1/commande/${id}/status?status=${newStatus}`, {
+      await fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/commande/${id}/status?status=${newStatus}`, {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });

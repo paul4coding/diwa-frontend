@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-const API_URL = 'http://localhost:8181'; 
-//const API_URL = 'https://bitter-rules-beg.loca.lt'; // URL de base du backend
+import { API_URL } from './config';
 
 const axiosInstance = axios.create({
   baseURL: API_URL,

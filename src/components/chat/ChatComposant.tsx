@@ -28,13 +28,13 @@ export default function ChatComposant({ demandeId }: { demandeId: number }) {
 
   const { data: messages = [] } = useQuery<Message[]>({
     queryKey: ['chat', demandeId],
-    queryFn: () => axios.get(`http://localhost:8181/api/v1/chat/demande/${demandeId}`, {
+    queryFn: () => axios.get(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/chat/demande/${demandeId}`, {
       headers: { Authorization: `Bearer ${token}` }
     }).then(res => res.data)
   })
 
   useEffect(() => {
-    const socket = new SockJS('http://localhost:8181/ws')
+    const socket = new SockJS(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/ws`)
     const client = new Client({
       webSocketFactory: () => socket,
       debug: (str) => console.log(str),

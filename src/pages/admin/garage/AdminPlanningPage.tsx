@@ -33,8 +33,8 @@ const AdminPlanningPage = () => {
       end.setDate(start.getDate() + 6);
       
       const [techRes, planRes] = await Promise.all([
-        fetch('http://localhost:8181/api/v1/techniciens/all').then(r => r.json()),
-        fetch(`http://localhost:8181/api/garage/planning/global?debut=${formatDate(start)}&fin=${formatDate(end)}`, {
+        fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/techniciens/all`).then(r => r.json()),
+        fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/garage/planning/global?debut=${formatDate(start)}&fin=${formatDate(end)}`, {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         }).then(r => r.json())
       ]);

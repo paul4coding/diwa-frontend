@@ -19,7 +19,7 @@ export const AppointmentSection = () => {
     if (!path) return '';
     if (path.startsWith('http')) return path;
     if (path.startsWith('/')) return path;
-    return `http://localhost:8181/uploads/${path}`;
+    return `${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/uploads/${path}`;
   };
 
   // Uniquement le parallax de fond — aucune animation d'entrée

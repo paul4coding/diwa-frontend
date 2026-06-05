@@ -9,7 +9,7 @@ import LoadingDots from '../components/common/LoadingDots';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-const BASE_URL = 'http://localhost:8181';
+const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8181';
 
 const VehiclePage = () => {
     const { uuid } = useParams<{ uuid: string }>();

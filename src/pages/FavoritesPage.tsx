@@ -7,7 +7,7 @@ import './Vehicles.css';
 import LoadingDots from '../components/common/LoadingDots';
 import PageHero from '../components/common/PageHero';
 
-const BASE_URL = 'http://localhost:8181';
+const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8181';
 
 const getImageUrl = (path: string | null) => {
     if (!path) return '/placeholder-car.jpg';

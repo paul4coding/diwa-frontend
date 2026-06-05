@@ -509,7 +509,7 @@ export default function ProFormaClientPage() {
                             <div style={{ fontWeight: 800 }}>COMMANDE CONFIRMÉE</div>
                         </div>
                         {pf?.pdfUrlClient && (
-                            <a href={`http://localhost:8181/uploads/${pf.pdfUrlClient}`} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, color: '#3b82f6', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem' }}>
+                            <a href={`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/uploads/${pf.pdfUrlClient}`} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, color: '#3b82f6', textDecoration: 'none', fontWeight: 700, fontSize: '0.9rem' }}>
                                 <Download size={18} /> Télécharger ma facture
                             </a>
                         )}

@@ -183,11 +183,11 @@ const RegisterPage = () => {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
               <div className="form-group">
                 <label>Prénom</label>
-                <input type="text" name="prenom" placeholder="Jean" value={formData.prenom} onChange={handleChange} required />
+                <input type="text" name="prenom" placeholder="kossi" value={formData.prenom} onChange={handleChange} required />
               </div>
               <div className="form-group">
                 <label>Nom</label>
-                <input type="text" name="nom" placeholder="Dupont" value={formData.nom} onChange={handleChange} required />
+                <input type="text" name="nom" placeholder="ALOBA" value={formData.nom} onChange={handleChange} required />
               </div>
             </div>
 

@@ -44,12 +44,12 @@ const AdminGaragePage = () => {
       const headers = { 'Authorization': `Bearer ${token}` };
 
       // INDIVIDUAL FETCHES TO AVOID PROMISE.ALL GLOBAL FAILURE
-      fetch('http://localhost:8181/api/v1/techniciens/all', { headers })
+      fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/techniciens/all`, { headers })
         .then(r => r.json())
         .then(res => { if(res.statut === 200) setTechs(res.data); })
         .catch(e => console.error("Error fetching techs", e));
 
-      fetch(`http://localhost:8181/api/garage/planning/global?debut=${formatDate(start)}&fin=${formatDate(end)}`, { headers })
+      fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/garage/planning/global?debut=${formatDate(start)}&fin=${formatDate(end)}`, { headers })
         .then(r => r.json())
         .then(res => {
             const allEvents: any[] = [];
@@ -59,12 +59,12 @@ const AdminGaragePage = () => {
         })
         .catch(e => console.error("Error fetching planning", e));
 
-      fetch('http://localhost:8181/api/v1/rendezvous/en-attente', { headers })
+      fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/rendezvous/en-attente`, { headers })
         .then(r => r.json())
         .then(res => { 
           if(res.statut === 200) {
             // Combiner avec les demandes d'intervention au garage
-            fetch('http://localhost:8181/api/v1/demandes?statut=VEHICULE_RECU', { headers })
+            fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/demandes?statut=VEHICULE_RECU`, { headers })
               .then(r2 => r2.json())
               .then(res2 => {
                 const combined = [...res.data, ...res2];
@@ -84,7 +84,7 @@ const AdminGaragePage = () => {
   const handleValidate = async (rdvId: number) => {
     if(!window.confirm("Valider ce rendez-vous ? L'email de confirmation professionnelle sera envoyé.")) return;
     try {
-        const res = await fetch(`http://localhost:8181/api/v1/rendezvous/admin/valider/${rdvId}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/rendezvous/admin/valider/${rdvId}`, {
             method: 'PUT',
             headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         }).then(r => r.json());
@@ -98,7 +98,7 @@ const AdminGaragePage = () => {
   const handleCancel = async (rdvId: number) => {
     if(!window.confirm("Voulez-vous vraiment annuler ce rendez-vous ? Un email de notification sera envoyé.")) return;
     try {
-        const res = await fetch(`http://localhost:8181/api/v1/rendezvous/admin/annuler/${rdvId}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/rendezvous/admin/annuler/${rdvId}`, {
             method: 'PUT',
             headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         }).then(r => r.json());
@@ -113,7 +113,7 @@ const AdminGaragePage = () => {
 
   const handleReset = async (rdvId: number) => {
     try {
-        const res = await fetch(`http://localhost:8181/api/v1/rendezvous/admin/reinitialiser/${rdvId}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/rendezvous/admin/reinitialiser/${rdvId}`, {
             method: 'PUT',
             headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         }).then(r => r.json());
@@ -128,7 +128,7 @@ const AdminGaragePage = () => {
   const handleDirectArrival = async () => {
     try {
         const token = localStorage.getItem('token');
-        const res = await fetch('http://localhost:8181/api/v1/demandes/direct', {
+        const res = await fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/demandes/direct`, {
             method: 'POST',
             headers: { 
               'Authorization': `Bearer ${token}`,
@@ -161,7 +161,7 @@ const AdminGaragePage = () => {
     try {
         // Pour simplifier ici, on attend un ID numérique. 
         // Une version plus pro utiliserait une modale de recherche client.
-        const res = await fetch(`http://localhost:8181/api/v1/demandes/${demandeId}/associer-client?clientId=${clientId}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/demandes/${demandeId}/associer-client?clientId=${clientId}`, {
             method: 'PUT',
             headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         }).then(r => r.json());
@@ -200,7 +200,7 @@ const AdminGaragePage = () => {
     }
 
     try {
-        const url = `http://localhost:8181/api/v1/rendezvous/planifier-direct/${rdvId}?date=${dateStr}&heure=${hour}&techId=${selectedTech}`;
+        const url = `${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/rendezvous/planifier-direct/${rdvId}?date=${dateStr}&heure=${hour}&techId=${selectedTech}`;
         const res = await fetch(url, {
             method: 'PUT',
             headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }

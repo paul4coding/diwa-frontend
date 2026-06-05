@@ -55,18 +55,18 @@ const AdminSavPage = () => {
       const headers = { 'Authorization': `Bearer ${token}` };
 
       // INDIVIDUAL FETCHES
-      fetch('http://localhost:8181/api/sav/tickets', { headers })
+      fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/sav/tickets`, { headers })
         .then(r => r.json())
         .then(res => setTickets(res || []))
         .catch(e => console.error("Error fetching SAV tickets", e));
 
-      fetch('http://localhost:8181/api/v1/techniciens/all', { headers })
+      fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/techniciens/all`, { headers })
         .then(r => r.json())
         .then(res => { if(res.statut === 200) setTechs(res.data); })
         .catch(e => console.error("Error fetching techs", e));
 
       // NOUVELLES DEMANDES SAV ELITE (Visites & Réparations & Arrivées)
-      fetch('http://localhost:8181/api/v1/demandes', { headers })
+      fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/demandes`, { headers })
         .then(r => r.json())
         .then(res => {
           if (Array.isArray(res)) {
@@ -79,8 +79,8 @@ const AdminSavPage = () => {
         .catch(e => console.error("Error fetching elite demands", e));
 
       Promise.all([
-        fetch('http://localhost:8181/api/v1/users/role/ROLE_CLIENT', { headers }).then(r => r.json()),
-        fetch('http://localhost:8181/api/v1/users/role/ROLE_USER', { headers }).then(r => r.json())
+        fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/users/role/ROLE_CLIENT`, { headers }).then(r => r.json()),
+        fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/users/role/ROLE_USER`, { headers }).then(r => r.json())
       ]).then(([clientsRole, usersRole]) => {
         const combined = [...(Array.isArray(clientsRole) ? clientsRole : []), ...(Array.isArray(usersRole) ? usersRole : [])];
         const unique = Array.from(new Map(combined.map(c => [c.id, c])).values());
@@ -108,7 +108,7 @@ const AdminSavPage = () => {
   const handleAssign = async (ticketId: number, techId: string) => {
     if (!techId) return;
     try {
-      await fetch(`http://localhost:8181/api/sav/tickets/${ticketId}/technicien?technicienId=${techId}`, {
+      await fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/sav/tickets/${ticketId}/technicien?technicienId=${techId}`, {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
@@ -118,7 +118,7 @@ const AdminSavPage = () => {
 
   const handleStatusChange = async (ticketId: number, status: string) => {
     try {
-      await fetch(`http://localhost:8181/api/sav/tickets/${ticketId}/statut?statut=${status}`, {
+      await fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/sav/tickets/${ticketId}/statut?statut=${status}`, {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
@@ -129,7 +129,7 @@ const AdminSavPage = () => {
   const handleDelete = async (id: number) => {
     if (!window.confirm("Êtes-vous sûr de vouloir supprimer définitivement ce ticket ?")) return;
     try {
-      const res = await fetch(`http://localhost:8181/api/v1/demandes/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/demandes/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
@@ -145,7 +145,7 @@ const AdminSavPage = () => {
   const handleCreateDirect = async () => {
     if (!selectedClient || !directVehiculeData.immat) return;
     try {
-        const res = await fetch('http://localhost:8181/api/v1/demandes/direct', {
+        const res = await fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/demandes/direct`, {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
@@ -172,7 +172,7 @@ const AdminSavPage = () => {
 
   const handleCreateClient = async () => {
     try {
-        const res = await fetch('http://localhost:8181/api/auth/register', {
+        const res = await fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/auth/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 

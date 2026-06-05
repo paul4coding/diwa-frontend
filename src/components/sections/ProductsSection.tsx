@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import LoadingDots from '../common/LoadingDots'
 import { useCMS } from '../../context/CMSContext'
 
-const BASE_URL = 'http://localhost:8181';
+const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8181';
 
 export const ProductsSection = () => {
   const { cmsData } = useCMS();

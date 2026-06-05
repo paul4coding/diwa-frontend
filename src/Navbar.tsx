@@ -86,7 +86,7 @@ export const Navbar = () => {
     if (!url) return '';
     if (url.startsWith('http')) return url;
     if (url.startsWith('/')) return url; // Asset local
-    return `http://localhost:8181/uploads/${url}`;
+    return `${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/uploads/${url}`;
   };
 
   useEffect(() => {

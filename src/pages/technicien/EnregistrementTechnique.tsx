@@ -76,7 +76,7 @@ export default function EnregistrementTechnique() {
   const getImageUrl = (url: string) => {
     if (!url) return '';
     if (url.startsWith('http')) return url;
-    return `http://localhost:8181/uploads/${url}`;
+    return `${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/uploads/${url}`;
   };
 
   if (isLoading) return <div className="p-20 text-center">Chargement...</div>

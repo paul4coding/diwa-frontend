@@ -37,7 +37,7 @@ const AdminTechniciensPage = () => {
   const fetchTechniciens = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8181/api/v1/techniciens/all');
+      const response = await fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/techniciens/all`);
       const result = await response.json();
       if (result.code === 200) {
         setTechniciens(result.data);
@@ -51,7 +51,7 @@ const AdminTechniciensPage = () => {
   const handleDelete = async (id: number) => {
     if (!window.confirm('Supprimer ce technicien ?')) return;
     try {
-      await fetch(`http://localhost:8181/api/v1/techniciens/delete/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/techniciens/delete/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
@@ -61,7 +61,7 @@ const AdminTechniciensPage = () => {
 
   const handleToggleActif = async (id: number) => {
     try {
-      await fetch(`http://localhost:8181/api/v1/techniciens/actif/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/techniciens/actif/${id}`, {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });

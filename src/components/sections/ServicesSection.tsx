@@ -41,7 +41,7 @@ export const ServicesSection = () => {
   const getImageUrl = (path: string) => {
     if (!path) return '/hero-1.jpg'
     if (path.startsWith('http') || path.startsWith('/')) return path
-    return `http://localhost:8181/uploads/${path}`
+    return `${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/uploads/${path}`
   }
 
   // ─── Kinetic typography — titre mot par mot ──────────────────────────────────

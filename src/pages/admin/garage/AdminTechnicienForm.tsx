@@ -35,7 +35,7 @@ const AdminTechnicienForm: React.FC<AdminTechnicienFormProps> = ({ technicien, o
   const handleInitPlanning = async () => {
     if (!technicien?.id) return;
     try {
-      await fetch(`http://localhost:8181/api/garage/techniciens/${technicien.id}/planning/init`, {
+      await fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/garage/techniciens/${technicien.id}/planning/init`, {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
@@ -50,8 +50,8 @@ const AdminTechnicienForm: React.FC<AdminTechnicienFormProps> = ({ technicien, o
 
     const method = technicien ? 'PUT' : 'POST';
     const url = technicien 
-      ? `http://localhost:8181/api/v1/techniciens/update/${technicien.id}` 
-      : 'http://localhost:8181/api/v1/techniciens/save';
+      ? `${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/techniciens/update/${technicien.id}` 
+      : `${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/api/v1/techniciens/save`;
 
     try {
       const response = await fetch(url, {

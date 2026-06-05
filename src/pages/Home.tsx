@@ -18,7 +18,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const BASE_URL = 'http://localhost:8181';
+const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8181';
 
 const getImageUrl = (path: string | null) => {
   if (!path) return '/placeholder-car.jpg';
@@ -56,7 +56,7 @@ const HeroSlider = () => {
 
   const getImg = (img: string) => {
     if (!img) return ''; if (img.startsWith('http') || img.startsWith('/')) return img;
-    return `http://localhost:8181/uploads/${img}`
+    return `${BASE_URL}/uploads/${img}`
   }
 
   const slide = slides[currentSlide]

@@ -27,7 +27,7 @@ export default function ChatAtelier({ demandeId }: { demandeId: number }) {
       .then(res => setMessages(res.data))
 
     // 2. Connect WebSocket
-    const socket = new SockJS('http://localhost:8181/ws-atelier')
+    const socket = new SockJS(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/ws-atelier`)
     stompClient.current = new Client({
       webSocketFactory: () => socket,
       onConnect: () => {

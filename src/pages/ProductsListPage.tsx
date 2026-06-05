@@ -63,7 +63,7 @@ const ProductsListPage = () => {
         if (!url) return '';
         if (url.startsWith('http')) return url;
         if (url.startsWith('/')) return url;
-        return `http://localhost:8181/uploads/${url}`;
+        return `${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}/uploads/${url}`;
     };
 
     const brands = Array.from(new Set(pieces.map(p => p.marque || 'Générique'))).map(b => ({

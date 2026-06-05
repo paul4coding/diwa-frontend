@@ -919,7 +919,7 @@ export default function ReceptionDashboard() {
                     <label style={{ fontSize: '0.7rem', fontWeight: 800, color: '#e53e3e', display: 'block', marginBottom: '12px', textTransform: 'uppercase' }}>🏁 État à l'arrivée (DIWA)</label>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px' }}>
                        {[selectedItem.receptionPhotoAvant, selectedItem.receptionPhotoArriere, selectedItem.receptionPhotoGauche, selectedItem.receptionPhotoDroit].map((p, i) => (
-                         p ? <img key={i} src={`http://localhost:8181${p}`} alt="reception" style={{ width: '100%', height: '60px', objectFit: 'cover', borderRadius: '8px' }} /> 
+                         p ? <img key={i} src={`${import.meta.env.VITE_API_URL ?? 'http://localhost:8181'}${p}`} alt="reception" style={{ width: '100%', height: '60px', objectFit: 'cover', borderRadius: '8px' }} /> 
                            : <div key={i} style={{ width: '100%', height: '60px', background: '#fee2e2', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.6rem', color: '#f87171' }}>N/A</div>
                        ))}
                     </div>

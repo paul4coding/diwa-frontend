@@ -23,7 +23,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stage } from '@react-three/drei';
 import axiosInstance from '../../../utils/axiosInstance';
 
-const BASE_URL = 'http://localhost:8181';
+const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8181';
 
 const getImageUrl = (path: string | null) => {
   if (!path) return '';
