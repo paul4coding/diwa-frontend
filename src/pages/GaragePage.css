@@ -165,14 +165,14 @@
     transition: 0.2s;
 }
 .urgency-item.active { border-width: 2px; }
-.urgency-item.low.active { border-color: #10b981; background: #f0fdf4; }
-.urgency-item.low .u-icon { color: #10b981; }
+.urgency-item.NORMALE.active { border-color: #10b981; background: #f0fdf4; }
+.urgency-item.NORMALE .u-icon { color: #10b981; }
 
-.urgency-item.medium.active { border-color: #f59e0b; background: #fffbeb; }
-.urgency-item.medium .u-icon { color: #f59e0b; }
+.urgency-item.URGENTE.active { border-color: #f59e0b; background: #fffbeb; }
+.urgency-item.URGENTE .u-icon { color: #f59e0b; }
 
-.urgency-item.high.active { border-color: #ef4444; background: #fef2f2; }
-.urgency-item.high .u-icon { color: #ef4444; }
+.urgency-item.TRES_URGENTE.active { border-color: #ef4444; background: #fef2f2; }
+.urgency-item.TRES_URGENTE .u-icon { color: #ef4444; }
 
 .u-icon { margin-bottom: 8px; display: flex; align-items: center; justify-content: center; }
 .u-label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
