@@ -1,0 +1,26 @@
+version: '3.8'
+
+# ──────────────────────────────────────────────────────────────────
+# DIWA Frontend — Docker Compose autonome
+#
+# Prérequis : le backend doit déjà tourner et être accessible
+# via l'URL définie dans VITE_API_URL.
+#
+# Usage :
+#   cp .env.example .env   # remplir VITE_API_URL
+#   docker compose up -d --build
+# ──────────────────────────────────────────────────────────────────
+
+services:
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # URL du backend, injectée au moment du build React (Vite)
+        VITE_API_URL: ${VITE_API_URL}
+    container_name: diwa-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
