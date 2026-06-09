@@ -1,0 +1,32 @@
+# ──────────────────────────────────────────────────────────────────
+# DIWA Frontend — .dockerignore
+# Exclut les fichiers inutiles du build context Docker
+# ──────────────────────────────────────────────────────────────────
+
+# Dépendances (réinstallées dans le conteneur)
+node_modules/
+
+# Build output (reconstruite dans le conteneur)
+dist/
+
+# Secrets locaux
+.env
+.env.local
+.env.*.local
+
+# IDE & OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Logs
+*.log
+npm-debug.log*
+
+# Docs
+*.md

@@ -772,7 +772,7 @@ const VehiclePage = () => {
                 .gallery-main-view {
                     width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
                 }
-                .gallery-main-view img {
+                .gallery-main-view img:not(.wipe-animation) {
                     width: 100%; height: auto; border-radius: 8px;
                     animation: fadeIn 0.5s ease-out;
                 }

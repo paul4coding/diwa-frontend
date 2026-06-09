@@ -2,12 +2,12 @@
 FROM node:20-slim AS build
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm ci --prefer-offline || npm ci
 COPY . .
 # VITE_API_URL est passé depuis docker-compose (build arg)
 ARG VITE_API_URL=http://localhost:8181
 ENV VITE_API_URL=${VITE_API_URL}
-RUN npm run build
+RUN npm run build:docker
 
 # Stage 2: Serve
 FROM nginx:alpine
