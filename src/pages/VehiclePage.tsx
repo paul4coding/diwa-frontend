@@ -420,7 +420,8 @@ const VehiclePage = () => {
 
                     {/* PANNEAU FINITIONS */}
                     <div className={`interior-side-panel ${isFinitionOpen ? 'open' : ''}`}>
-                        <div className="panel-header" style={{ justifyContent: 'space-between' }}>
+                        {/* Header avec X */}
+                        <div className="panel-header" style={{ justifyContent: 'space-between', zIndex: 3200 }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                                 <button className="back-arrow-btn" onClick={() => setIsFinitionOpen(false)}>
                                     <ArrowLeft color="#ffffff" size={22} strokeWidth={2.5} />
@@ -432,33 +433,39 @@ const VehiclePage = () => {
                             </button>
                         </div>
 
-                        <div className="finition-grid">
+                        {/* Grande image de la finition sélectionnée */}
+                        <div className="finition-main-img">
+                            {selectedFinition?.image
+                                ? <img src={getImageUrl(selectedFinition.image)} alt={selectedFinition.nom} />
+                                : <div className="finition-img-placeholder" />}
+                            {/* Info overlay bas */}
+                            <div className="finition-main-overlay">
+                                <div className="finition-main-name">{selectedFinition?.nom || '—'}</div>
+                                <div className="finition-main-price">
+                                    {selectedFinition?.prixSupplement > 0
+                                        ? `+ ${selectedFinition.prixSupplement.toLocaleString('fr-FR')} FCFA`
+                                        : 'Inclus de série'}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Bande de vignettes */}
+                        <div className="finition-thumb-strip">
                             {finitions.map((f, i) => (
                                 <div
                                     key={i}
-                                    className={`finition-card ${selectedFinition?.id === f.id ? 'selected' : ''}`}
+                                    className={`finition-thumb ${selectedFinition?.id === f.id ? 'active' : ''}`}
                                     onClick={() => setSelectedFinition(f)}
                                 >
-                                    {selectedFinition?.id === f.id && (
-                                        <span className="moteur-badge">Sélectionnée</span>
-                                    )}
-                                    <div className="finition-img-wrap">
-                                        {f.image
-                                            ? <img src={getImageUrl(f.image)} alt={f.nom} />
-                                            : <div className="finition-img-placeholder" />}
-                                    </div>
-                                    <div className="finition-info">
-                                        <div className="finition-name">{f.nom}</div>
-                                        <div className="finition-price">
-                                            {f.prixSupplement > 0
-                                                ? `+ ${f.prixSupplement.toLocaleString('fr-FR')} FCFA`
-                                                : 'Inclus'}
-                                        </div>
-                                    </div>
+                                    {f.image
+                                        ? <img src={getImageUrl(f.image)} alt={f.nom} />
+                                        : <div className="finition-img-placeholder" />}
+                                    <span>{f.nom}</span>
                                 </div>
                             ))}
                         </div>
 
+                        {/* Footer */}
                         <div className="moteur-footer">
                             <button className="moteur-confirm-btn" onClick={() => setIsFinitionOpen(false)}>
                                 Confirmer la finition
@@ -979,47 +986,53 @@ const VehiclePage = () => {
                 }
                 .moteur-confirm-btn:hover { background: #006abc; }
 
-                /* GRILLE FINITIONS */
-                .finition-grid {
-                    flex: 1; overflow-y: auto;
-                    display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-                    gap: 16px;
-                    padding: 110px 5% 20px;
-                    align-content: start;
+                /* PANNEAU FINITIONS — grande image + vignettes */
+                .finition-main-img {
+                    flex: 1; position: relative; overflow: hidden; min-height: 0;
                 }
-                .finition-card {
-                    position: relative;
-                    background: rgba(255,255,255,0.04);
-                    border: 1px solid rgba(255,255,255,0.08);
-                    border-radius: 14px;
-                    overflow: hidden;
-                    cursor: pointer;
-                    transition: border-color 0.25s, background 0.25s;
-                }
-                .finition-card:hover { border-color: rgba(0,120,212,0.4); background: rgba(255,255,255,0.07); }
-                .finition-card.selected { border-color: #0078d4; background: rgba(0,120,212,0.08); }
-                .finition-img-wrap {
-                    width: 100%; aspect-ratio: 16/9; overflow: hidden;
-                }
-                .finition-img-wrap img {
+                .finition-main-img img {
                     width: 100%; height: 100%; object-fit: cover;
-                    transition: transform 0.4s ease;
+                    transition: opacity 0.3s ease;
                 }
-                .finition-card:hover .finition-img-wrap img { transform: scale(1.04); }
                 .finition-img-placeholder {
                     width: 100%; height: 100%; background: #1a1a1a;
                 }
-                .finition-info {
-                    padding: 14px 16px;
-                    display: flex; justify-content: space-between; align-items: center;
+                .finition-main-overlay {
+                    position: absolute; bottom: 0; left: 0; right: 0;
+                    padding: 50px 5% 20px;
+                    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
                 }
-                .finition-name {
-                    font-size: 0.95rem; font-weight: 700; color: #fff;
+                .finition-main-name {
+                    font-size: 1.6rem; font-weight: 700; color: #fff;
+                    font-family: 'Playfair Display', serif; margin-bottom: 4px;
                 }
-                .finition-price {
-                    font-size: 0.8rem; font-weight: 600;
-                    color: #0078d4; white-space: nowrap;
+                .finition-main-price {
+                    font-size: 0.9rem; font-weight: 600; color: #0078d4; letter-spacing: 0.5px;
+                }
+
+                /* Bande de vignettes */
+                .finition-thumb-strip {
+                    display: flex; gap: 10px; overflow-x: auto;
+                    padding: 12px 5%; background: #0a0a0a; flex-shrink: 0;
+                    scroll-snap-type: x mandatory;
+                }
+                .finition-thumb-strip::-webkit-scrollbar { height: 4px; }
+                .finition-thumb-strip::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+                .finition-thumb {
+                    flex: 0 0 110px; scroll-snap-align: start;
+                    cursor: pointer; border-radius: 8px; overflow: hidden;
+                    border: 2px solid transparent; transition: border-color 0.2s;
+                    display: flex; flex-direction: column;
+                }
+                .finition-thumb.active { border-color: #0078d4; }
+                .finition-thumb img {
+                    width: 110px; height: 72px; object-fit: cover; display: block;
+                }
+                .finition-thumb span {
+                    background: #111; color: #ccc; font-size: 0.65rem; font-weight: 600;
+                    text-align: center; padding: 5px 4px; text-transform: uppercase;
+                    letter-spacing: 0.5px; white-space: nowrap; overflow: hidden;
+                    text-overflow: ellipsis;
                 }
 
                 @media (max-width: 768px) {
