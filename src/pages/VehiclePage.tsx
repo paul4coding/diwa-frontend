@@ -26,6 +26,7 @@ const VehiclePage = () => {
     const [prevColorObj, setPrevColorObj] = useState<any>(null);
     const [isAnimatingColor, setIsAnimatingColor] = useState(false);
     const [isInteriorOpen, setIsInteriorOpen] = useState(false);
+    const [selectedInteriorImg, setSelectedInteriorImg] = useState<any>(null);
     const [isFinitionOpen, setIsFinitionOpen] = useState(false);
     const [isMotorisationOpen, setIsMotorisationOpen] = useState(false);
 
@@ -408,13 +409,36 @@ const VehiclePage = () => {
                                 <X color="#ffffff" size={22} strokeWidth={2.5} />
                             </button>
                         </div>
-                        <div className="panel-content-horizontal">
-                            {vehicle.imagesGalerie?.map((img: any, i: number) => (
-                                <div key={i} className="interior-slide-item">
-                                    <img src={getImageUrl(img.url)} alt={`Intérieur ${i}`} />
-                                    <div className="img-caption">{img.vue || 'Détail Intérieur'}</div>
+                        {/* Grande image principale */}
+                        <div className="interior-main-img">
+                            {(() => {
+                                const current = selectedInteriorImg || vehicle.imagesGalerie?.[0];
+                                return current
+                                    ? <img src={getImageUrl(current.url)} alt={current.vue || 'Intérieur'} />
+                                    : <div className="interior-img-placeholder" />;
+                            })()}
+                            <div className="interior-main-overlay">
+                                <div className="interior-main-caption">
+                                    {(selectedInteriorImg || vehicle.imagesGalerie?.[0])?.vue || 'Détail Intérieur'}
                                 </div>
-                            ))}
+                            </div>
+                        </div>
+                        {/* Bande de vignettes */}
+                        <div className="interior-thumb-strip">
+                            {vehicle.imagesGalerie?.map((img: any, i: number) => {
+                                const current = selectedInteriorImg || vehicle.imagesGalerie?.[0];
+                                const isActive = current?.url === img.url;
+                                return (
+                                    <div
+                                        key={i}
+                                        className={`interior-thumb ${isActive ? 'active' : ''}`}
+                                        onClick={() => setSelectedInteriorImg(img)}
+                                    >
+                                        <img src={getImageUrl(img.url)} alt={img.vue || `Photo ${i + 1}`} />
+                                        <span>{img.vue || `Photo ${i + 1}`}</span>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
 
@@ -927,7 +951,51 @@ const VehiclePage = () => {
                 .panel-header h3 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin: 0; font-weight: 400; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
                 .back-arrow-btn { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; color: #ffffff; z-index: 5000; }
                 .back-arrow-btn:hover { background: rgba(255,255,255,0.35); transform: scale(1.1); }
-                
+
+                /* HABITACLE — grande image + vignettes */
+                .interior-main-img {
+                    flex: 1; position: relative; overflow: hidden; min-height: 0;
+                }
+                .interior-main-img img {
+                    width: 100%; height: 100%; object-fit: cover;
+                    transition: opacity 0.3s ease;
+                }
+                .interior-img-placeholder {
+                    width: 100%; height: 100%; background: #1a1a1a;
+                }
+                .interior-main-overlay {
+                    position: absolute; bottom: 0; left: 0; right: 0;
+                    padding: 50px 5% 20px;
+                    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+                }
+                .interior-main-caption {
+                    font-size: 1.4rem; font-weight: 600; color: #fff;
+                    font-family: 'Playfair Display', serif; text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+                }
+                .interior-thumb-strip {
+                    display: flex; gap: 10px; overflow-x: auto;
+                    padding: 12px 5%; background: #0a0a0a; flex-shrink: 0;
+                    scroll-snap-type: x mandatory;
+                }
+                .interior-thumb-strip::-webkit-scrollbar { height: 4px; }
+                .interior-thumb-strip::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+                .interior-thumb {
+                    flex: 0 0 120px; scroll-snap-align: start;
+                    cursor: pointer; border-radius: 8px; overflow: hidden;
+                    border: 2px solid transparent; transition: border-color 0.2s;
+                    display: flex; flex-direction: column;
+                }
+                .interior-thumb.active { border-color: #0078d4; }
+                .interior-thumb img {
+                    width: 120px; height: 78px; object-fit: cover; display: block;
+                }
+                .interior-thumb span {
+                    background: #111; color: #ccc; font-size: 0.62rem; font-weight: 600;
+                    text-align: center; padding: 5px 4px; text-transform: uppercase;
+                    letter-spacing: 0.5px; white-space: nowrap; overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
                 /* GRILLE MOTORISATIONS */
                 .moteur-grid {
                     flex: 1; overflow-y: auto;
@@ -1041,7 +1109,6 @@ const VehiclePage = () => {
                     .config-btn-group { flex-direction: column; width: 100%; }
                     .config-btn-group button { width: 100%; }
                     .interior-side-panel { width: 100%; }
-                    .interior-slide-item { flex: 0 0 95%; height: 60%; }
                 }
                 .btn-reserve-blue {
                     background: #0078d4; color: #fff; border: none;
@@ -1190,7 +1257,6 @@ const VehiclePage = () => {
                     .viewer-container { width: 100%; margin-top: 0; }
                     .visualizer-wrapper { margin-top: 0; }
 
-                    .interior-slide-item { flex: 0 0 90vw; height: 50vh; }
                     .panel-header h3 { font-size: 1.5rem; }
                 }
                 
