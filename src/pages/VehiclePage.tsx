@@ -434,26 +434,52 @@ const VehiclePage = () => {
                         </div>
                     </div>
 
-                    {/* PANNEAU MOTORISATIONS COULISSANT HORIZONTAL */}
+                    {/* PANNEAU MOTORISATIONS */}
                     <div className={`interior-side-panel ${isMotorisationOpen ? 'open' : ''}`}>
-                        <div className="panel-header">
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                        <div className="panel-header" style={{ justifyContent: 'space-between' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                                 <button className="back-arrow-btn" onClick={() => setIsMotorisationOpen(false)}>
-                                    <ArrowLeft color="#ffffff" size={32} strokeWidth={2.5} />
+                                    <ArrowLeft color="#ffffff" size={22} strokeWidth={2.5} />
                                 </button>
-                                <h3>Les Motorisations</h3>
+                                <h3 style={{ fontSize: '1.5rem' }}>Motorisations</h3>
                             </div>
+                            <button className="back-arrow-btn" onClick={() => setIsMotorisationOpen(false)}>
+                                <X color="#ffffff" size={22} strokeWidth={2.5} />
+                            </button>
                         </div>
-                        <div className="panel-content-horizontal">
+
+                        <div className="moteur-grid">
                             {motorisations.map((m, i) => (
-                                <div key={i} className="interior-slide-item" style={{ justifyContent: 'center', alignItems: 'center', background: '#111' }}>
-                                    <div style={{ textAlign: 'center', padding: '40px' }}>
-                                        <h2 style={{ fontSize: '3rem', color: '#fff', marginBottom: '10px' }}>{m.moteur || m.type}</h2>
-                                        <h4 style={{ fontSize: '1.5rem', color: '#0078d4' }}>{m.puissance} ch • {m.couple} Nm</h4>
-                                        <p style={{ fontSize: '1rem', color: '#aaa', marginTop: '20px', letterSpacing: '1px' }}>Prix sur demande</p>
+                                <div
+                                    key={i}
+                                    className={`moteur-card ${selectedMotorisation?.id === m.id ? 'selected' : ''}`}
+                                    onClick={() => setSelectedMotorisation(m)}
+                                >
+                                    {selectedMotorisation?.id === m.id && (
+                                        <span className="moteur-badge">Sélectionnée</span>
+                                    )}
+                                    <div className="moteur-index">0{i + 1}</div>
+                                    <div className="moteur-label">{m.moteur || m.type}</div>
+                                    <div className="moteur-specs-row">
+                                        <div className="moteur-spec">
+                                            <span className="spec-val">{m.puissance}</span>
+                                            <span className="spec-unit">ch</span>
+                                        </div>
+                                        <div className="spec-sep" />
+                                        <div className="moteur-spec">
+                                            <span className="spec-val">{m.couple}</span>
+                                            <span className="spec-unit">Nm</span>
+                                        </div>
                                     </div>
+                                    <div className="moteur-prix">Prix sur demande</div>
                                 </div>
                             ))}
+                        </div>
+
+                        <div className="moteur-footer">
+                            <button className="moteur-confirm-btn" onClick={() => setIsMotorisationOpen(false)}>
+                                Confirmer la sélection
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -863,28 +889,63 @@ const VehiclePage = () => {
                 .back-arrow-btn { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; color: #ffffff; z-index: 5000; }
                 .back-arrow-btn:hover { background: rgba(255,255,255,0.35); transform: scale(1.1); }
                 
-                .panel-content-horizontal {
-                    flex: 1; display: flex; overflow-x: auto; gap: 40px; padding: 0 5vw;
-                    scroll-snap-type: x mandatory; background: #0a0a0a;
-                    align-items: center;
+                /* GRILLE MOTORISATIONS */
+                .moteur-grid {
+                    flex: 1; overflow-y: auto;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                    gap: 16px;
+                    padding: 110px 5% 20px;
+                    align-content: start;
                 }
-                .panel-content-horizontal::-webkit-scrollbar { height: 8px; }
-                .panel-content-horizontal::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-                
-                .interior-slide-item {
-                    flex: 0 0 65vw; scroll-snap-align: center; max-width: 1000px;
-                    position: relative; border-radius: 16px; overflow: hidden;
-                    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-                    height: 65vh; max-height: 800px; display: flex; flex-direction: column;
+                .moteur-card {
+                    position: relative;
+                    background: rgba(255,255,255,0.04);
+                    border: 1px solid rgba(255,255,255,0.08);
+                    border-radius: 14px;
+                    padding: 28px 24px 22px;
+                    cursor: pointer;
+                    transition: border-color 0.25s, background 0.25s;
                 }
-                .interior-slide-item img {
-                    width: 100%; height: 100%; object-fit: cover;
+                .moteur-card:hover { background: rgba(255,255,255,0.08); border-color: rgba(0,120,212,0.4); }
+                .moteur-card.selected { border-color: #0078d4; background: rgba(0,120,212,0.1); }
+                .moteur-badge {
+                    position: absolute; top: 14px; right: 14px;
+                    background: #0078d4; color: #fff;
+                    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.8px;
+                    text-transform: uppercase; padding: 3px 10px; border-radius: 20px;
                 }
-                .img-caption {
-                    position: absolute; bottom: 0; left: 0; width: 100%;
-                    padding: 60px 40px 40px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-                    color: #fff; font-weight: 500; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 2px;
+                .moteur-index {
+                    font-size: 2.8rem; font-weight: 900; line-height: 1;
+                    color: rgba(255,255,255,0.06); margin-bottom: 8px;
+                    font-family: 'Playfair Display', serif;
                 }
+                .moteur-label {
+                    font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 18px;
+                }
+                .moteur-specs-row {
+                    display: flex; align-items: center; gap: 16px; margin-bottom: 16px;
+                }
+                .moteur-spec { display: flex; align-items: baseline; gap: 3px; }
+                .spec-val { font-size: 1.9rem; font-weight: 800; color: #0078d4; line-height: 1; }
+                .spec-unit { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+                .spec-sep { width: 1px; height: 28px; background: rgba(255,255,255,0.15); }
+                .moteur-prix { font-size: 0.75rem; color: #555; text-transform: uppercase; letter-spacing: 1px; }
+
+                .moteur-footer {
+                    padding: 16px 5%;
+                    border-top: 1px solid rgba(255,255,255,0.08);
+                    background: rgba(0,0,0,0.4);
+                    flex-shrink: 0;
+                }
+                .moteur-confirm-btn {
+                    width: 100%; padding: 14px;
+                    background: #0078d4; color: #fff;
+                    border: none; border-radius: 8px;
+                    font-size: 0.9rem; font-weight: 700; cursor: pointer;
+                    letter-spacing: 0.5px; transition: background 0.2s;
+                }
+                .moteur-confirm-btn:hover { background: #006abc; }
 
                 @media (max-width: 768px) {
                     .config-panel { padding: 15px; }
