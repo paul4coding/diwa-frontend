@@ -264,11 +264,12 @@ const VehiclePage = () => {
                                         extension="jpeg"
                                     />
                                 ) : activeView === 'color_view' ? (
-                                    <div className="gallery-main-view" style={{ position: 'relative', overflow: 'hidden' }}>
-                                        {/* Image de base / précédente */}
+                                    <div className="gallery-main-view color-view-wrap" style={{ position: 'relative', overflow: 'hidden' }}>
+                                        {/* Image de base / précédente — même sizing que l'overlay */}
                                         <img
                                             src={getImageUrl(prevColorObj ? prevColorObj.image : activeColorObj?.image || vehicle.imagePrincipale)}
                                             alt="Vehicle Detail Base"
+                                            className="color-base-img"
                                         />
 
                                         {/* Image superposée avec animation Wipe */}
@@ -775,6 +776,12 @@ const VehiclePage = () => {
                 .gallery-main-view img:not(.wipe-animation) {
                     width: 100%; height: auto; border-radius: 8px;
                     animation: fadeIn 0.5s ease-out;
+                }
+                /* Image de base dans la vue couleur : même sizing que l'overlay wipe
+                   → les deux images s'alignent pixel-perfect, pas de flash fadeIn */
+                .gallery-main-view img.color-base-img {
+                    width: 100%; height: 100%; object-fit: contain;
+                    animation: none;
                 }
 
                 .wipe-animation {
