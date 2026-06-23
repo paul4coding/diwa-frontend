@@ -498,19 +498,31 @@ const VehiclePage = () => {
                     </div>
 
                     {/* PANNEAU MOTORISATIONS */}
-                    <div className={`interior-side-panel ${isMotorisationOpen ? 'open' : ''}`}>
-                        <div className="panel-header" style={{ justifyContent: 'space-between' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                                <button className="back-arrow-btn" onClick={() => setIsMotorisationOpen(false)}>
-                                    <ArrowLeft color="#ffffff" size={22} strokeWidth={2.5} />
-                                </button>
-                                <h3 style={{ fontSize: '1.5rem' }}>Motorisations</h3>
+                    <div className={`interior-side-panel moteur-panel-bg ${isMotorisationOpen ? 'open' : ''}`}>
+                        {/* Overlay sombre sur l'image de fond */}
+                        <div className="moteur-dark-overlay" />
+
+                        {/* Header */}
+                        <div className="moteur-panel-header">
+                            <button className="back-arrow-btn" onClick={() => setIsMotorisationOpen(false)}>
+                                <ArrowLeft color="#ffffff" size={22} strokeWidth={2.5} />
+                            </button>
+                            <div className="moteur-hero-block">
+                                <div className="moteur-label-tag">
+                                    <span className="moteur-tag-dot" />
+                                    MOTORISATION
+                                </div>
+                                <h2 className="moteur-hero-title">
+                                    Puissance,<br />
+                                    <span className="moteur-orange">Performance</span>
+                                </h2>
                             </div>
                             <button className="back-arrow-btn" onClick={() => setIsMotorisationOpen(false)}>
                                 <X color="#ffffff" size={22} strokeWidth={2.5} />
                             </button>
                         </div>
 
+                        {/* Grille de cartes glass */}
                         <div className="moteur-grid">
                             {motorisations.map((m, i) => (
                                 <div
@@ -519,7 +531,7 @@ const VehiclePage = () => {
                                     onClick={() => setSelectedMotorisation(m)}
                                 >
                                     {selectedMotorisation?.id === m.id && (
-                                        <span className="moteur-badge">Sélectionnée</span>
+                                        <span className="moteur-badge">✓ Sélectionnée</span>
                                     )}
                                     <div className="moteur-index">0{i + 1}</div>
                                     <div className="moteur-label">{m.moteur || m.type}</div>
@@ -534,6 +546,7 @@ const VehiclePage = () => {
                                             <span className="spec-unit">Nm</span>
                                         </div>
                                     </div>
+                                    <div className="moteur-transmission">{m.transmission || 'Automatique'}</div>
                                     <div className="moteur-prix">Prix sur demande</div>
                                 </div>
                             ))}
@@ -996,63 +1009,126 @@ const VehiclePage = () => {
                     text-overflow: ellipsis;
                 }
 
-                /* GRILLE MOTORISATIONS */
+                /* ── PANNEAU MOTORISATIONS — image de fond + glassmorphism ── */
+                .moteur-panel-bg {
+                    background-image: url('/assets/moteur.png');
+                    background-size: cover;
+                    background-position: center right;
+                }
+                .moteur-dark-overlay {
+                    position: absolute; inset: 0;
+                    background: linear-gradient(
+                        135deg,
+                        rgba(5,5,10,0.93) 0%,
+                        rgba(5,5,10,0.80) 50%,
+                        rgba(5,5,10,0.55) 100%
+                    );
+                    z-index: 0;
+                }
+
+                /* Header motorisation */
+                .moteur-panel-header {
+                    position: relative; z-index: 10;
+                    display: flex; align-items: flex-start; justify-content: space-between;
+                    padding: 32px 5% 0;
+                    flex-shrink: 0;
+                }
+                .moteur-hero-block { flex: 1; padding: 0 24px; }
+                .moteur-label-tag {
+                    display: flex; align-items: center; gap: 8px;
+                    color: #E87722; font-size: 0.72rem; font-weight: 700;
+                    letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 10px;
+                }
+                .moteur-tag-dot {
+                    width: 8px; height: 8px; border-radius: 50%;
+                    background: #E87722; flex-shrink: 0;
+                }
+                .moteur-hero-title {
+                    font-family: 'Playfair Display', serif;
+                    font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+                    font-weight: 900; color: #fff; line-height: 1.15; margin: 0;
+                    text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+                }
+                .moteur-orange { color: #E87722; }
+
+                /* Grille de cartes */
                 .moteur-grid {
+                    position: relative; z-index: 10;
                     flex: 1; overflow-y: auto;
                     display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-                    gap: 16px;
-                    padding: 110px 5% 20px;
+                    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                    gap: 14px;
+                    padding: 28px 5% 20px;
                     align-content: start;
                 }
                 .moteur-card {
                     position: relative;
-                    background: rgba(255,255,255,0.04);
-                    border: 1px solid rgba(255,255,255,0.08);
-                    border-radius: 14px;
-                    padding: 28px 24px 22px;
+                    background: rgba(255,255,255,0.06);
+                    backdrop-filter: blur(14px);
+                    -webkit-backdrop-filter: blur(14px);
+                    border: 1px solid rgba(255,255,255,0.10);
+                    border-radius: 16px;
+                    padding: 24px 22px 20px;
                     cursor: pointer;
-                    transition: border-color 0.25s, background 0.25s;
+                    transition: border-color 0.25s, background 0.25s, transform 0.2s;
                 }
-                .moteur-card:hover { background: rgba(255,255,255,0.08); border-color: rgba(0,120,212,0.4); }
-                .moteur-card.selected { border-color: #0078d4; background: rgba(0,120,212,0.1); }
+                .moteur-card:hover {
+                    background: rgba(232,119,34,0.10);
+                    border-color: rgba(232,119,34,0.45);
+                    transform: translateY(-2px);
+                }
+                .moteur-card.selected {
+                    border-color: #E87722;
+                    background: rgba(232,119,34,0.14);
+                    box-shadow: 0 0 0 1px rgba(232,119,34,0.4), 0 8px 32px rgba(232,119,34,0.15);
+                }
                 .moteur-badge {
                     position: absolute; top: 14px; right: 14px;
-                    background: #0078d4; color: #fff;
-                    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.8px;
+                    background: #E87722; color: #fff;
+                    font-size: 0.62rem; font-weight: 700; letter-spacing: 0.8px;
                     text-transform: uppercase; padding: 3px 10px; border-radius: 20px;
                 }
                 .moteur-index {
-                    font-size: 2.8rem; font-weight: 900; line-height: 1;
-                    color: rgba(255,255,255,0.06); margin-bottom: 8px;
+                    font-size: 2.4rem; font-weight: 900; line-height: 1;
+                    color: rgba(232,119,34,0.18); margin-bottom: 6px;
                     font-family: 'Playfair Display', serif;
                 }
                 .moteur-label {
-                    font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 18px;
+                    font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 16px;
+                    line-height: 1.3;
                 }
                 .moteur-specs-row {
-                    display: flex; align-items: center; gap: 16px; margin-bottom: 16px;
+                    display: flex; align-items: center; gap: 14px; margin-bottom: 12px;
                 }
                 .moteur-spec { display: flex; align-items: baseline; gap: 3px; }
-                .spec-val { font-size: 1.9rem; font-weight: 800; color: #0078d4; line-height: 1; }
-                .spec-unit { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
-                .spec-sep { width: 1px; height: 28px; background: rgba(255,255,255,0.15); }
-                .moteur-prix { font-size: 0.75rem; color: #555; text-transform: uppercase; letter-spacing: 1px; }
+                .spec-val { font-size: 1.8rem; font-weight: 800; color: #E87722; line-height: 1; }
+                .spec-unit { font-size: 0.7rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; }
+                .spec-sep { width: 1px; height: 26px; background: rgba(255,255,255,0.12); }
+                .moteur-transmission {
+                    font-size: 0.72rem; color: rgba(255,255,255,0.45);
+                    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+                }
+                .moteur-prix {
+                    font-size: 0.72rem; color: rgba(232,119,34,0.7);
+                    text-transform: uppercase; letter-spacing: 1px; font-weight: 600;
+                }
 
                 .moteur-footer {
+                    position: relative; z-index: 10;
                     padding: 16px 5%;
                     border-top: 1px solid rgba(255,255,255,0.08);
-                    background: rgba(0,0,0,0.4);
+                    background: rgba(0,0,0,0.5);
                     flex-shrink: 0;
                 }
                 .moteur-confirm-btn {
-                    width: 100%; padding: 14px;
-                    background: #0078d4; color: #fff;
+                    width: 100%; padding: 15px;
+                    background: #E87722; color: #fff;
                     border: none; border-radius: 8px;
                     font-size: 0.9rem; font-weight: 700; cursor: pointer;
-                    letter-spacing: 0.5px; transition: background 0.2s;
+                    letter-spacing: 0.8px; text-transform: uppercase;
+                    transition: background 0.2s, transform 0.15s;
                 }
-                .moteur-confirm-btn:hover { background: #006abc; }
+                .moteur-confirm-btn:hover { background: #d06010; transform: translateY(-1px); }
 
                 /* PANNEAU FINITIONS — grande image + vignettes */
                 .finition-main-img {
