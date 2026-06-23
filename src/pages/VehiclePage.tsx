@@ -970,7 +970,7 @@ const VehiclePage = () => {
                     flex: 1; position: relative; overflow: hidden; min-height: 0;
                 }
                 .interior-main-img img {
-                    width: 100%; height: 100%; object-fit: cover;
+                    width: 100%; height: 100%; object-fit: contain;
                     transition: opacity 0.3s ease;
                 }
                 .interior-img-placeholder {
