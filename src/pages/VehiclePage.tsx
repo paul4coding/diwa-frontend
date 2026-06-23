@@ -397,13 +397,16 @@ const VehiclePage = () => {
 
                     {/* PANNEAU INTERIEUR COULISSANT HORIZONTAL */}
                     <div className={`interior-side-panel ${isInteriorOpen ? 'open' : ''}`}>
-                        <div className="panel-header">
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                        <div className="panel-header" style={{ justifyContent: 'space-between' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                                 <button className="back-arrow-btn" onClick={() => setIsInteriorOpen(false)}>
-                                    <ArrowLeft color="#ffffff" size={32} strokeWidth={2.5} />
+                                    <ArrowLeft color="#ffffff" size={22} strokeWidth={2.5} />
                                 </button>
-                                <h3>L'Habitacle</h3>
+                                <h3 style={{ fontSize: '1.5rem' }}>L'Habitacle</h3>
                             </div>
+                            <button className="back-arrow-btn" onClick={() => setIsInteriorOpen(false)}>
+                                <X color="#ffffff" size={22} strokeWidth={2.5} />
+                            </button>
                         </div>
                         <div className="panel-content-horizontal">
                             {vehicle.imagesGalerie?.map((img: any, i: number) => (
@@ -415,22 +418,51 @@ const VehiclePage = () => {
                         </div>
                     </div>
 
-                    {/* PANNEAU FINITIONS COULISSANT HORIZONTAL */}
+                    {/* PANNEAU FINITIONS */}
                     <div className={`interior-side-panel ${isFinitionOpen ? 'open' : ''}`}>
-                        <div className="panel-header">
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                        <div className="panel-header" style={{ justifyContent: 'space-between' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                                 <button className="back-arrow-btn" onClick={() => setIsFinitionOpen(false)}>
-                                    <ArrowLeft color="#ffffff" size={32} strokeWidth={2.5} />
+                                    <ArrowLeft color="#ffffff" size={22} strokeWidth={2.5} />
                                 </button>
-                                <h3>Les Finitions</h3>
+                                <h3 style={{ fontSize: '1.5rem' }}>Finitions</h3>
                             </div>
+                            <button className="back-arrow-btn" onClick={() => setIsFinitionOpen(false)}>
+                                <X color="#ffffff" size={22} strokeWidth={2.5} />
+                            </button>
                         </div>
-                        <div className="panel-content-horizontal">
+
+                        <div className="finition-grid">
                             {finitions.map((f, i) => (
-                                <div key={i} className="interior-slide-item">
-                                    {f.image ? <img src={getImageUrl(f.image)} alt={f.nom} /> : <div style={{ width: '100%', height: '100%', background: '#333' }} />}
+                                <div
+                                    key={i}
+                                    className={`finition-card ${selectedFinition?.id === f.id ? 'selected' : ''}`}
+                                    onClick={() => setSelectedFinition(f)}
+                                >
+                                    {selectedFinition?.id === f.id && (
+                                        <span className="moteur-badge">Sélectionnée</span>
+                                    )}
+                                    <div className="finition-img-wrap">
+                                        {f.image
+                                            ? <img src={getImageUrl(f.image)} alt={f.nom} />
+                                            : <div className="finition-img-placeholder" />}
+                                    </div>
+                                    <div className="finition-info">
+                                        <div className="finition-name">{f.nom}</div>
+                                        <div className="finition-price">
+                                            {f.prixSupplement > 0
+                                                ? `+ ${f.prixSupplement.toLocaleString('fr-FR')} FCFA`
+                                                : 'Inclus'}
+                                        </div>
+                                    </div>
                                 </div>
                             ))}
+                        </div>
+
+                        <div className="moteur-footer">
+                            <button className="moteur-confirm-btn" onClick={() => setIsFinitionOpen(false)}>
+                                Confirmer la finition
+                            </button>
                         </div>
                     </div>
 
@@ -946,6 +978,49 @@ const VehiclePage = () => {
                     letter-spacing: 0.5px; transition: background 0.2s;
                 }
                 .moteur-confirm-btn:hover { background: #006abc; }
+
+                /* GRILLE FINITIONS */
+                .finition-grid {
+                    flex: 1; overflow-y: auto;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                    gap: 16px;
+                    padding: 110px 5% 20px;
+                    align-content: start;
+                }
+                .finition-card {
+                    position: relative;
+                    background: rgba(255,255,255,0.04);
+                    border: 1px solid rgba(255,255,255,0.08);
+                    border-radius: 14px;
+                    overflow: hidden;
+                    cursor: pointer;
+                    transition: border-color 0.25s, background 0.25s;
+                }
+                .finition-card:hover { border-color: rgba(0,120,212,0.4); background: rgba(255,255,255,0.07); }
+                .finition-card.selected { border-color: #0078d4; background: rgba(0,120,212,0.08); }
+                .finition-img-wrap {
+                    width: 100%; aspect-ratio: 16/9; overflow: hidden;
+                }
+                .finition-img-wrap img {
+                    width: 100%; height: 100%; object-fit: cover;
+                    transition: transform 0.4s ease;
+                }
+                .finition-card:hover .finition-img-wrap img { transform: scale(1.04); }
+                .finition-img-placeholder {
+                    width: 100%; height: 100%; background: #1a1a1a;
+                }
+                .finition-info {
+                    padding: 14px 16px;
+                    display: flex; justify-content: space-between; align-items: center;
+                }
+                .finition-name {
+                    font-size: 0.95rem; font-weight: 700; color: #fff;
+                }
+                .finition-price {
+                    font-size: 0.8rem; font-weight: 600;
+                    color: #0078d4; white-space: nowrap;
+                }
 
                 @media (max-width: 768px) {
                     .config-panel { padding: 15px; }
